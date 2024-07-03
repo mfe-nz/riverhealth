@@ -1,0 +1,28 @@
+Package: riverhealth
+Title: New Zealand River Ecosystem Health Score
+Version: 0.0.0.9000
+Authors@R: 
+    person("Alba", "Cervantes-Loreto", , "alba.cervantesloreto@cawthron.org.nz", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Convinient functions to calculate a New Zealand River Ecosystem Health Score as proposed by Clapcott et al. (2019). The score serves as a simple and holistic measure of the biophysical condition of rivers and streams in New Zealand. It is based on the Freshwater Biophysical Ecosystem Health Framework and evaluates five core components of ecosystem health: Aquatic Life, Physical Habitat, Water Quality, Water Quantity, and Ecological Processes.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports: 
+    cowplot,
+    dplyr,
+    geomtextpath,
+    ggimage,
+    ggplot2,
+    gridExtra,
+    magick,
+    magrittr,
+    purrr,
+    stringr,
+    testthat,
+    tidyr
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Config/testthat/edition: 3
