@@ -16,12 +16,10 @@ Imports:
     ggimage,
     ggplot2,
     gridExtra,
-    magick,
     magrittr,
-    purrr,
     stringr,
-    testthat,
-    tidyr
+    tidyr,
+    testthat
 Depends: 
     R (>= 2.10)
 LazyData: true
