@@ -35,3 +35,26 @@ A list of plots, each corresponding to a different reporting scale.
 \description{
 This function generates plots for various environmental components based on provided scores and reference data.
 }
+\examples{
+ macroinvertebrates <- data.frame( site = 1:3,class = c("universal"),
+ indicator = "macroinvertebrates",
+ component = "aquatic_life",
+ reporting_scale = c("region_1","region_2","region_1"),
+ mci = c(89,120,135))
+
+ score_table <-calculate_health_score(indicators = list(macroinvertebrates),
+ reference_table = reference_table_default)
+
+ color_table <- c("Z" = "white",
+ "W" = "#bdbcbc",
+ "A" = "#20a7ad",
+ "B+" = "#85bb5b",
+ "B-" = "#85bb5b",
+ "C+" = "#ffa827",
+ "C-" = "#ffa827",
+ "D" = "#e85129")
+
+ plot_report_card(component_scores = list(score_table),
+ reference_table = reference_table_default,
+ color_table = color_table)
+}
