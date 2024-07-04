@@ -580,3 +580,6 @@ The new additional columns of this table denote:
   and reporting scale.
 - **npsfm_grade:** The NPSFM grade band that corresponds to a metric
   given its average value.
+
+**The Cauchy-Schwarz Inequality**
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
