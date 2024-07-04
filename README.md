@@ -47,7 +47,7 @@ Clapcott et al. 2019) with steps undertaken by this R package
 highlighted.</figcaption>
 </figure>
 
-## Reference table
+### Reference table
 
 A nationally applicable reference table is provided with the package.
 This table provides default values for excellent ecological condition
@@ -210,7 +210,7 @@ key metric even if that metric has low suitability. For example, plant
 *exotic_species* is a key metric despite a suitability of 1 because
 there are no alternative metrics assessing nativeness.
 
-## Preparing data - Indicator tables
+### Preparing data - Indicator tables
 
 Within each component, indicator tables should be prepared
 independently. Each table should be presented as a tidy data frame,
@@ -248,3 +248,299 @@ As an example, all subsequent analyses will show how to calculate health
 scores for the *Aquatic Life* component using simulated data. This data
 is provided with the package. The first few rows of the
 `macroinvertebrates` indicator table show:
+
+|    site |       mci | percentage_ept_taxa | ept_taxa_richness | reporting_scale | indicator          | component    | class     |
+|--------:|----------:|--------------------:|------------------:|:----------------|:-------------------|:-------------|:----------|
+| 2005826 | 102.03704 |                46.5 |            15.345 | region 1        | macroinvertebrates | aquatic_life | universal |
+| 2004945 |  72.54873 |                10.0 |             2.450 | region 1        | macroinvertebrates | aquatic_life | universal |
+| 2004945 |  72.54873 |                10.0 |             2.450 | region 1        | macroinvertebrates | aquatic_life | universal |
+| 2004945 |  72.54873 |                10.0 |             2.450 | region 1        | macroinvertebrates | aquatic_life | universal |
+| 2001345 |  86.99597 |                25.5 |             6.630 | region 1        | macroinvertebrates | aquatic_life | universal |
+| 2009507 |  82.25263 |                26.5 |             6.890 | region 1        | macroinvertebrates | aquatic_life | universal |
+
+The order of the columns will not affect the analyses. However, all the
+required columns should be present within each indicator table.
+
+Following the *Aquatic Life* example, we also simulated data for the
+`fish` indicator:
+
+|    site | fish_ibi | reporting_scale | indicator | component    | class     |
+|--------:|---------:|:----------------|:----------|:-------------|:----------|
+| 1002057 |       16 | region 9        | fish      | aquatic_life | universal |
+| 1002114 |       16 | region 9        | fish      | aquatic_life | universal |
+| 1006679 |       14 | region 9        | fish      | aquatic_life | universal |
+| 1006843 |       14 | region 9        | fish      | aquatic_life | universal |
+| 1007395 |       16 | region 9        | fish      | aquatic_life | universal |
+| 1008653 |       14 | region 9        | fish      | aquatic_life | universal |
+
+And finally, the `plants` indicator:
+
+|     site | class   | reporting_scale | periphyton | indicator | component    |
+|---------:|:--------|:----------------|-----------:|:----------|:-------------|
+| 13019274 | default | region 3        |    28.9200 | plants    | aquatic_life |
+| 13511847 | default | region 3        |    32.5868 | plants    | aquatic_life |
+| 13058883 | default | region 3        |    16.1380 | plants    | aquatic_life |
+| 13064793 | default | region 3        |   121.2352 | plants    | aquatic_life |
+| 13064432 | default | region 3        |    90.4284 | plants    | aquatic_life |
+| 13064432 | default | region 3        |    90.4284 | plants    | aquatic_life |
+
+Note that it is not necessary to have *all* indicator tables that make
+up a component to perform the subsequent analyses. Analyses can be
+performed with a minimum of one metric measured and one indicator table.
+
+## Ecosystem health analyses
+
+Before conducting analyses, two global options must be defined, which
+will apply to all components. The first option, `NPSFM`, is a Boolean
+variable. When set to `TRUE`, it exclusively calculates indicator,
+component, and overall river health scores for metrics outlined in the
+2020 National Policy Statement for Freshwater Management.
+
+The second option, `overall_score`, is also a Boolean variable. When set
+to `TRUE`, it computes a single indicator, component, and overall river
+health score. Otherwise, calculations are performed for individual
+groups listed in the `reporting_scale` column.
+
+``` r
+
+npsfm_only <- FALSE
+overall_score <- TRUE
+```
+
+### Data harmonisation
+
+Data harmonisation involves converting data to a common scale. This is
+done so that disparate metrics can combined at indicator and component
+levels.
+
+Following Clapcott et al. (2019), data harmonisation involved
+calculating performance scores for each metric. These performance scores
+range from 0 to 1, where 0 signifies a degraded condition (e.g., the
+bottom line), and 1 indicates a minimally-impacted reference condition.
+Sites performing better than the reference target cannot achieve scores
+higher than 1, and those performing worse than the bottom line cannot
+score less than 0.
+
+Where low values of a metric indicate a healthy performance, as
+indicated by the *healthy_value* in the **Reference table** performance
+scores are calculated as: $$
+\text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{bl}_{c,m} - \text{value}_{i,m}}{\text{bl}_{c,m} - \text{ref}_{c,m}}\text{))}
+$$
+
+Where $\text{ps}_{i,c,m}$ denotes the performance score for site $i$
+belonging to class $c$ and metric $m$, $\text{bl}_{c,}$ and
+$\text{ref}_{c,m}$ represent the metric-specific bottom line and
+reference values for class $c$ respectively, while $\text{value}_{i,m}$
+stands for the measured or modeled value of metric $m$ in site $i$.
+
+In contrast, where high values of a metric indicate a healthy
+performance, as indicated by the *healthy_value* in the **Reference
+table**, performance scores for each site are calculated as:
+
+$$
+\text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{value}_{i,m} - \text{bl}_{c,m} }{  \text{ref}_{c,m} - \text{bl}_{c,m}}\text{))}
+$$
+
+### Data integration
+
+Data integration involves combining different metric performance scores
+into a combined assessment (i.e. into an indicator, component and
+overall river ecosystem health score). To do so, weighted averaging is
+applied based on data suitability scores to integrate metric scores.
+Suitability scores (*1*, *2* or *3*) for each metric are provided with
+the **Reference table**. A score of *3* indicates the data is of high
+quality, whereas a score of *1* indicates the data is less accurate and
+should have less weight.
+
+Indicator scores are calculated based on all available metric
+performance scores and weighted by metric-associated suitability scores.
+Formally, indicator scores, ($I$), can be calculated as:
+
+$$
+\text{I} = \frac{\sum_{m=1}^{p} \frac{1}{n} \sum_{i=1}^{n}\text{ps}_{i,m}  S_{m}}{\sum_{m=1}^{p} S_{m}}
+$$
+
+In this equation, $p$ represents the total number of metrics that
+comprise an indicator, with $m$ iterating through each metric. Meanwhile
+$n$ denotes the total number of sites (observations) per metric, and
+$ps_{i}$ represents the performance score of site $i$. Finally, $S_{m}$
+is the suitability score for metric $m$. In simpler terms, this equation
+computes a weighted average of the average values within each metric,
+where the weights are determined by $S_{m}$. Indicator scores can be
+calculated for all sites (i.e., an *overall* score) or independently for
+each group in the *reporting_scale* column.
+
+Importantly, if two metrics measure the same attribute, then only the
+metric with the lowest average performance score will be taken into
+account to calculate $I$. This is done to avoid over-reporting of the
+similar data.
+
+Suitability-weighted average scores are also used in the calculation of
+component scores in a similar fashion to indicator scores. Data
+harmonisation and integration can be easily done using the function
+`calculate_health_score`. To use this function, indicator tables must be
+provided as a list:
+
+``` r
+indicators <- list(macroinvertebrates,
+                   fish,
+                   plants)
+
+score_table <- calculate_health_score(indicators = indicators,
+                                      reference_table = reference_table_default,
+                                      overall_score = overall_score,
+                                      npsfm_only = npsfm_only)
+
+kableExtra::kable(score_table)
+```
+
+| component    | indicator          | attribute           | metric              | reporting_scale | metric_score | indicator_score | indicator_grade | component_score | component_grade | observations | suitability | key_metric | default_baseline | npsfm |
+|:-------------|:-------------------|:--------------------|:--------------------|:----------------|-------------:|----------------:|:----------------|----------------:|:----------------|-------------:|------------:|:-----------|:-----------------|:------|
+| aquatic_life | fish               | fish_ibi            | fish_ibi            | overall         |    0.5538244 |       0.5538244 | B-              |       0.6209283 | B-              |         2824 |           3 | TRUE       | TRUE             | TRUE  |
+| aquatic_life | macroinvertebrates | ept_taxa_richness   | ept_taxa_richness   | overall         |    0.4774871 |       0.4420313 | C+              |       0.6209283 | B-              |          954 |           1 | FALSE      | TRUE             | FALSE |
+| aquatic_life | macroinvertebrates | mci                 | mci                 | overall         |    0.4361241 |       0.4420313 | C+              |       0.6209283 | B-              |         1021 |           3 | TRUE       | TRUE             | TRUE  |
+| aquatic_life | macroinvertebrates | percentage_ept_taxa | percentage_ept_taxa | overall         |    0.4242971 |       0.4420313 | C+              |       0.6209283 | B-              |          954 |           1 | FALSE      | TRUE             | FALSE |
+| aquatic_life | plants             | plant_productivity  | periphyton          | overall         |    0.7874194 |       0.7874194 | B+              |       0.6209283 | B-              |          231 |           3 | TRUE       | TRUE             | TRUE  |
+
+The results of this function yield a table where each row is a unique
+combination of *metric* and *reporting_scale*. If `overall = TRUE` then
+groups in *reporting_scale* are ignored and scores are calculated for
+all sites. The new columns in this table denote:
+
+- **metric_score:** The average metric performance score for a given
+  reporting scale
+- **indicator_score:** The results of data integration at the indicator
+  level. Note that if all suitability scores are the same for all
+  metrics, then the indicator score shows the average performance scores
+  of all metrics that comprise an indicator. Since the data is shown per
+  metric, rows belonging to the same indicator will have repeated values
+  for this column.
+- **indicator_grade:** This column shows the grade assigned to each
+  indicator score as shown in Clapcott et al. (2019).
+- **component_score:** The results of data integration at the component
+  level. Similar to the **indicator_score** column, if all suitability
+  scores are the same, then this column will show the average
+  performance score for all metrics that comprise a component.
+- **component_grade:** This column shows the grade assigned to a
+  component based on its score as shown in Clapcott et al. (2019).
+- **observations:** This column denotes the number of observations per
+  metric and reportinc scale used to calculate performance scores.
+- **default_baselines:** This column denotes if default baselines were
+  used (`TRUE`) or if user defined baselines were used (`FALSE`) to
+  calculate preformance scores.
+
+Note on **grade** assignment. There are six possible grades assigned
+based on the division of performance scores between 0 and 1 as follows:
+0 (*D*), 0 \> and \< 0.25 (*C-*), 0.25 \> and \< 0.5 (*C+*), 0.5 \> and
+\< 0.75 (*B-*), 0.75 \> and \< 1 (*B+*) and 1 (*A*).
+
+## Ecosystem health reporting
+
+The package also offers convenient functions to visualise and report the
+results of the river ecosystem health analyses.
+
+### Component plot
+
+To visualize the health scores within a component, the results from the
+function `calculate_health_score` have to be given to the
+`plot_component` function as follows:
+
+``` r
+component_plot <- plot_component(
+  score_table = score_table,
+  npsfm_only = npsfm_only,
+  reference_table = reference_table_default,
+  font_size = 20,
+  color_table = NULL,
+  start_year = 2017,
+  end_year = 2024
+  
+)
+
+component_plot
+#> [[1]]
+```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+
+The output of the `plot_component` function is a list of plots, where
+each element corresponds to a different *reporting_scale* group.
+
+The left panel is a doughnut plot where each wedge represents a
+different indicator, as shown in the labels. The center of the doughnut
+plot shows the component health score as a grade, and each wedge
+displays the indicator health scores as grades. Different colors denote
+different grades. If the user wishes to use a different color palette
+than the one provided with the package, they should provide a
+`color table` (see help for `plot_component`).
+
+Each wedge is filled to denote data availability. To calculate how much
+each wedge should be filled, the function calculates the availability
+for each indicator, $\text{A}_{I}$, as:
+
+$$
+\text{A}_{I} = \frac{\sum_{m=1}^{p}    S_{m}}{\sum_{k=1}^{n} S_{k}}
+$$
+
+Where $S_{m}$ denote metrics measured by the user and $S_{k}$ denote
+*key_metrics* for a given indicator, as shown in the **Reference
+table**.
+
+The right panel shows a metadata table for the plotted results,
+including the component the metrics belong to, the reporting scale being
+plotted, the mean suitability for all metrics, and the number of
+observations per metric. The *Year range* row is a numeric value input
+by the user to the `plot_component` function to specify the temporal
+scale of observations. The *Metric baselines* row indicates whether the
+reference table provided by the user is the same as the one provided by
+the package (*default*) or if the user defined different benchmarks
+(*user defined*).
+
+### River ecosystem report card
+
+The package also provides a function to visualize a report card on the
+state of all five core components of ecosystem health as well as an
+overall assessment of river health.
+
+To produce this report card the user must input the outputs of the
+`calculate_health_score` function for all the components available as a
+list. In the present example, only the *Aquatic Life* component is
+present:
+
+``` r
+
+component_scores <- list(score_table)
+
+report_card <- plot_report_card(
+  component_scores = component_scores,
+  reference_table = reference_table_default,
+  npsfm_only = npsfm_only,
+  start_year = 2017,
+  end_year = 2024,
+  color_table = NULL,
+  font_size = 14
+  
+)
+
+
+
+#save it to aid visualization
+jpeg("./aquatic_life_plot.jpeg",width = 1875, height = 3000, res = 150)
+report_card[[1]]
+dev.off()
+#> png 
+#>   2
+```
+
+Similar to the `plot_component` function, the `plot_all_components`
+output is a list of plots, one per group in the *reporting_scale*
+column. We recommend saving the outputs of this function as individual
+pdf files to aid visualization, as shown in the code above.
+
+<figure>
+<img src="aquatic_life_plot.jpeg" style="width:100.0%"
+alt="Figure 2 River ecosystem health report card. For the present example, only data for the Aquatic Life component was available." />
+<figcaption aria-hidden="true">Figure 2 River ecosystem health report
+card. For the present example, only data for the Aquatic Life component
+was available.</figcaption>
+</figure>
