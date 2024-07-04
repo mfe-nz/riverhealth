@@ -239,6 +239,7 @@ Each wedge is filled to denote data availability. To calculate how much each wed
 ```
 
 
+$`\text{A}_{I} = \frac{\sum_{m=1}^{p}    S_{m}}{\sum_{k=1}^{n} S_{k}}`$
 Where $`S_{m}`$ denote metrics measured by the user and $`S_{k}`$ denote *key_metrics* for a given indicator, as shown in the **Reference table**.
 
 The right panel shows a metadata table for the plotted results, including the component the metrics belong to, the reporting scale being plotted, the mean suitability for all metrics, and the number of observations per metric. The *Year range* row is a numeric value input by the user to the `plot_component` function to specify the temporal scale of observations. The *Metric baselines* row indicates whether the reference table provided by the user is the same as the one provided by the package (*default*) or if the user defined different benchmarks (*user defined*).
