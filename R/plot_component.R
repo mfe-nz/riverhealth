@@ -66,7 +66,7 @@ plot_component <- function(score_table,
   }
 
   component_name <- unique(score_table$component) %>%
-    sub(pattern="_", replace= " ") %>%
+    sub(pattern="_", replacement= " ") %>%
     stringr::str_to_title()
 
   #calculate how much to fill out each indicator wedge, based on the measured metrics and the required key metrics
@@ -122,8 +122,8 @@ plot_component <- function(score_table,
     #tidy up names
     dp <- plot_table %>%
       dplyr::filter(reporting_scale == component_label$reporting_scale[i]) %>%
-      dplyr::mutate(indicator = sub(indicator, pattern="_", replace= " "))%>%
-      dplyr::mutate(indicator = sub(indicator, pattern="_", replace= " ")) %>%
+      dplyr::mutate(indicator = sub(indicator, pattern="_", replacement= " "))%>%
+      dplyr::mutate(indicator = sub(indicator, pattern="_", replacement= " ")) %>%
       dplyr::mutate(indicator = stringr::str_to_sentence(indicator))
 
     #if only one indicator is present, the plot has to be slightly modified
@@ -167,8 +167,8 @@ plot_component <- function(score_table,
               "Metric" =metric,
               "Observations"= observations)%>%
       dplyr::mutate(Indicator= stringr::str_to_sentence(Indicator)) %>%
-      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replace= " ")) %>%
-      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replace= " ")) %>%
+      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replacement= " ")) %>%
+      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replacement= " ")) %>%
       dplyr::mutate(Indicator= ifelse(duplicated(Indicator), " ",Indicator)) %>%
       dplyr::rowwise() %>%
       dplyr::mutate(Metric = get_metric_names(Metric))

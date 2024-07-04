@@ -27,10 +27,10 @@ get_metric_names <- function(metric){
     metric <- name$name
 
   }else{
-    metric <- sub(metric, pattern="_", replace= " ") %>%
-      sub(metric, pattern="_", replace= " ")%>%
-      sub(metric, pattern="_", replace= " ")%>%
-      sub(metric, pattern="_", replace= " ") %>%
+    metric <- sub(metric, pattern="_", replacement= " ") %>%
+      sub(metric, pattern="_", replacement= " ")%>%
+      sub(metric, pattern="_", replacement= " ")%>%
+      sub(metric, pattern="_", replacement= " ") %>%
       stringr::str_to_sentence()
 
   }

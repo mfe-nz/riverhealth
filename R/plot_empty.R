@@ -56,7 +56,7 @@ plot_empty <- function(component_ind,
 
 
   component_name <- unique(score_table$component) %>%
-    sub(pattern="_", replace= " ") %>%
+    sub(pattern="_", replacement= " ") %>%
     stringr::str_to_title()
   #this is going to yield and empty table
   availability_table <- calculate_plot_width(score_table = score_table,
@@ -110,8 +110,8 @@ plot_empty <- function(component_ind,
 
     dp <- plot_table %>%
       dplyr::filter(reporting_scale == component_label$reporting_scale[i]) %>%
-      dplyr::mutate(indicator = sub(indicator, pattern="_", replace= " "))%>%
-      dplyr::mutate(indicator = sub(indicator, pattern="_", replace= " ")) %>%
+      dplyr::mutate(indicator = sub(indicator, pattern="_", replacement= " "))%>%
+      dplyr::mutate(indicator = sub(indicator, pattern="_", replacement= " ")) %>%
       dplyr::mutate(indicator = stringr::str_to_sentence(indicator))
 
     if( length(unique(dp$indicator)) <= 1 ){
@@ -156,8 +156,8 @@ plot_empty <- function(component_ind,
                      "Metric" =metric,
                      "Observations"= observations)%>%
       dplyr::mutate(Indicator= stringr::str_to_sentence(Indicator)) %>%
-      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replace= " ")) %>%
-      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replace= " ")) %>%
+      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replacement= " ")) %>%
+      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replacement= " ")) %>%
       dplyr::mutate(Indicator= ifelse(duplicated(Indicator), " ",Indicator)) %>%
       dplyr::rowwise() %>%
       dplyr::mutate(Metric = get_metric_names(Metric))
