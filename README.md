@@ -39,7 +39,7 @@ temporal scale (e.g., the calculation of a 5-yr median for a given
 site).
 
 <figure>
-<img src="flow_diagram.jpg"
+<img src="man/figures/flow_diagram.jpg"
 alt="Figure 1 Flow diagram of the steps in the application of the framework for freshwater ecosystem health (from Clapcott et al. 2019) with steps undertaken by this R package highlighted." />
 <figcaption aria-hidden="true">Figure 1 Flow diagram of the steps in the
 application of the framework for freshwater ecosystem health (from

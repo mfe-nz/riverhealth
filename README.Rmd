@@ -33,7 +33,7 @@ devtools::install_github("cawthron/riverhealth")
 
 Before using `riverhealth`, it is assumed that users have followed the steps required to apply the Freshwater Biophysical Ecosystem Health Framework (Figure 1). This package assists users in **Step 1** by providing default reference values for metrics, in **Step 2** by harmonising and integrating data, and in **Step 3** by calculating performance scores and plots for ecosystem health reporting. Users must complete other steps in the process before using this tool. Such as the establishment of representative monitoring sites, data collection, metric calculation, and data aggregation to a chosen spatial and temporal scale (e.g., the calculation of a 5-yr median for a given site).
 
-![Figure 1 Flow diagram of the steps in the application of the framework for freshwater ecosystem health (from Clapcott et al. 2019) with steps undertaken by this R package highlighted.](flow_diagram.jpg)
+![Figure 1 Flow diagram of the steps in the application of the framework for freshwater ecosystem health (from Clapcott et al. 2019) with steps undertaken by this R package highlighted.](man/figures/flow_diagram.jpg)
 
 ### Reference table
 
