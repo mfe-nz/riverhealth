@@ -325,14 +325,17 @@ Where low values of a metric indicate a healthy performance, as
 indicated by the *healthy_value* in the **Reference table** performance
 scores are calculated as:
 
-$$\text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{bl}_{c,m} -   \text{value}_{i,m}}{\text{bl}_{c,m} - \text{ref}_{c,m}}\text{))}$$
+<!-- $$\text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{bl}_{c,m} - \text{value}_{i,m}}{\text{bl}_{c,m} - \text{ref}_{c,m}}\text{))}$$ -->
 
-Where $$\text{ps}_{i,c,m}$$ denotes the performance score for site $$i$$
-belonging to class $$c$$ and metric $$m$$, $$\text{bl}_{c,}$$ and
-$$\text{ref}_{c,m}$$ represent the metric-specific bottom line and
-reference values for class $$c$$ respectively, while
-$$\text{value}_{i,m}$$ stands for the measured or modeled value of
-metric $$m$$ in site $$i$$.
+$$
+\text{ps}_{i,c,m} = \min \left( 1, \max \left( \frac{\text{bl}_{c,m} - \text{value}_{i,m}}{\text{bl}_{c,m} - \text{ref}_{c,m}} \right) \right)
+$$
+
+Where $\text{ps}_{i,c,m}$ denotes the performance score for site $i$
+belonging to class $c$ and metric $m$, $\text{bl}_{c,}$ and
+$\text{ref}_{c,m}$ represent the metric-specific bottom line and
+reference values for class $c$ respectively, while $\text{value}_{i,m}$
+stands for the measured or modeled value of metric $m$ in site $i$.
 
 In contrast, where high values of a metric indicate a healthy
 performance, as indicated by the *healthy_value* in the **Reference
