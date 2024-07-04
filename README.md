@@ -327,7 +327,7 @@ scores are calculated as:
 
 <!-- $$\text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{bl}_{c,m} - \text{value}_{i,m}}{\text{bl}_{c,m} - \text{ref}_{c,m}}\text{))}$$ -->
 
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right) \text{ps}_i{i,c}$$
+$$ \text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{bl}_{c,m} - \text{value}_{i,m}}{\text{bl}_{c,m} - \text{ref}_{c,m}}\text{))} $$
 
 Where $\text{ps}_{i,c,m}$ denotes the performance score for site $i$
 belonging to class $c$ and metric $m$, $\text{bl}_{c,}$ and
