@@ -152,9 +152,11 @@ Where $`\text{ps}_{i,c,m}`$ and  denotes the performance score for site $`i`$ be
 
 In contrast, where high values of a metric indicate a healthy performance,  as indicated by the *healthy_value* in the **Reference table**, performance scores for each site are calculated as:
 
-$$
+```{math}
 \text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{value}_{i,m} - \text{bl}_{c,m} }{  \text{ref}_{c,m} - \text{bl}_{c,m}}\text{))}
-$$
+```
+
+
 
 ### Data integration
 
@@ -163,15 +165,17 @@ combined assessment (i.e. into an indicator, component and overall river ecosyst
 health score). To do so, weighted averaging is applied based on data suitability scores to integrate
 metric scores. Suitability scores (*1*, *2* or *3*) for each metric are provided with the **Reference table**. A score of *3* indicates the data is of high quality, whereas a score of *1* indicates the data is less accurate and should have less weight.
 
-Indicator scores are  calculated based on all available metric performance scores and weighted by metric-associated suitability scores. Formally, indicator scores, ($I$), can be calculated as:
+Indicator scores are  calculated based on all available metric performance scores and weighted by metric-associated suitability scores. Formally, indicator scores, ($`I`$), can be calculated as:
 
-$$
+```{math}
 \text{I} = \frac{\sum_{m=1}^{p} \frac{1}{n} \sum_{i=1}^{n}\text{ps}_{i,m}  S_{m}}{\sum_{m=1}^{p} S_{m}}
-$$
+```
 
-In this equation, $p$ represents the total number of metrics that comprise an indicator, with $m$ iterating through each metric. Meanwhile $n$ denotes the total number of sites (observations) per metric, and $ps_{i}$ represents the performance score of site $i$. Finally, $S_{m}$ is the suitability score for metric $m$.  In simpler terms, this equation computes a weighted average of the average values within each metric, where the weights are determined by $S_{m}$. Indicator scores can be calculated for all sites (i.e., an *overall* score) or independently for each group in the *reporting_scale* column.
 
-Importantly, if two metrics measure the same attribute, then only the metric with the lowest average performance score will be taken into account to calculate $I$. This is done to avoid over-reporting of the similar data.
+
+In this equation, $`p`$ represents the total number of metrics that comprise an indicator, with $`m`$ iterating through each metric. Meanwhile $`n`$ denotes the total number of sites (observations) per metric, and $`ps_{i}`$ represents the performance score of site $`i`$. Finally, $`S_{m}`$ is the suitability score for metric $`m`$.  In simpler terms, this equation computes a weighted average of the average values within each metric, where the weights are determined by $`S_{m}`$. Indicator scores can be calculated for all sites (i.e., an *overall* score) or independently for each group in the *reporting_scale* column.
+
+Importantly, if two metrics measure the same attribute, then only the metric with the lowest average performance score will be taken into account to calculate $`I`$. This is done to avoid over-reporting of the similar data.
 
 Suitability-weighted average scores are also used in the calculation of component scores in a similar fashion to indicator scores. Data harmonisation and integration can be easily done using the function `calculate_health_score`. To use this function, indicator tables must be provided as a list:
 
@@ -228,13 +232,14 @@ The output of the `plot_component` function is a list of plots, where each eleme
 
 The left panel is a doughnut plot where each wedge represents a different indicator, as shown in the labels. The center of the doughnut plot shows the component health score as a grade, and each wedge displays the indicator health scores as grades. Different colors denote different grades. If the user wishes to use a different color palette than the one provided with the package, they should provide a `color table` (see help for `plot_component`).
 
-Each wedge is filled to denote data availability. To calculate how much each wedge should be filled, the function calculates the availability for each indicator, $\text{A}_{I}$, as:
+Each wedge is filled to denote data availability. To calculate how much each wedge should be filled, the function calculates the availability for each indicator, $`\text{A}_{I}`$, as:
 
-$$
+```{math}
 \text{A}_{I} = \frac{\sum_{m=1}^{p}    S_{m}}{\sum_{k=1}^{n} S_{k}}
-$$
+```
 
-Where $S_{m}$ denote metrics measured by the user and $S_{k}$ denote *key_metrics* for a given indicator, as shown in the **Reference table**.
+
+Where $`S_{m}`$ denote metrics measured by the user and $`S_{k}`$ denote *key_metrics* for a given indicator, as shown in the **Reference table**.
 
 The right panel shows a metadata table for the plotted results, including the component the metrics belong to, the reporting scale being plotted, the mean suitability for all metrics, and the number of observations per metric. The *Year range* row is a numeric value input by the user to the `plot_component` function to specify the temporal scale of observations. The *Metric baselines* row indicates whether the reference table provided by the user is the same as the one provided by the package (*default*) or if the user defined different benchmarks (*user defined*).
 
@@ -293,5 +298,3 @@ The output of the `calculate_npsfm_grade` function is a table where each row is 
 - **metric_mean:** The average value of a metric for a particular class and reporting scale.
 - **npsfm_grade:** The NPSFM grade band that corresponds to a metric given its average value.
 
-**The Cauchy-Schwarz Inequality**
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$

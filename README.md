@@ -342,9 +342,9 @@ In contrast, where high values of a metric indicate a healthy
 performance, as indicated by the *healthy_value* in the **Reference
 table**, performance scores for each site are calculated as:
 
-$$
+``` math
 \text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{value}_{i,m} - \text{bl}_{c,m} }{  \text{ref}_{c,m} - \text{bl}_{c,m}}\text{))}
-$$
+```
 
 ### Data integration
 
@@ -359,25 +359,25 @@ should have less weight.
 
 Indicator scores are calculated based on all available metric
 performance scores and weighted by metric-associated suitability scores.
-Formally, indicator scores, ($I$), can be calculated as:
+Formally, indicator scores, ($`I`$), can be calculated as:
 
-$$
+``` math
 \text{I} = \frac{\sum_{m=1}^{p} \frac{1}{n} \sum_{i=1}^{n}\text{ps}_{i,m}  S_{m}}{\sum_{m=1}^{p} S_{m}}
-$$
+```
 
-In this equation, $p$ represents the total number of metrics that
-comprise an indicator, with $m$ iterating through each metric. Meanwhile
-$n$ denotes the total number of sites (observations) per metric, and
-$ps_{i}$ represents the performance score of site $i$. Finally, $S_{m}$
-is the suitability score for metric $m$. In simpler terms, this equation
-computes a weighted average of the average values within each metric,
-where the weights are determined by $S_{m}$. Indicator scores can be
-calculated for all sites (i.e., an *overall* score) or independently for
-each group in the *reporting_scale* column.
+In this equation, $`p`$ represents the total number of metrics that
+comprise an indicator, with $`m`$ iterating through each metric.
+Meanwhile $`n`$ denotes the total number of sites (observations) per
+metric, and $`ps_{i}`$ represents the performance score of site $`i`$.
+Finally, $`S_{m}`$ is the suitability score for metric $`m`$. In simpler
+terms, this equation computes a weighted average of the average values
+within each metric, where the weights are determined by $`S_{m}`$.
+Indicator scores can be calculated for all sites (i.e., an *overall*
+score) or independently for each group in the *reporting_scale* column.
 
 Importantly, if two metrics measure the same attribute, then only the
 metric with the lowest average performance score will be taken into
-account to calculate $I$. This is done to avoid over-reporting of the
+account to calculate $`I`$. This is done to avoid over-reporting of the
 similar data.
 
 Suitability-weighted average scores are also used in the calculation of
@@ -466,7 +466,7 @@ component_plot
 #> [[1]]
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
 
 The output of the `plot_component` function is a list of plots, where
 each element corresponds to a different *reporting_scale* group.
@@ -481,13 +481,13 @@ than the one provided with the package, they should provide a
 
 Each wedge is filled to denote data availability. To calculate how much
 each wedge should be filled, the function calculates the availability
-for each indicator, $\text{A}_{I}$, as:
+for each indicator, $`\text{A}_{I}`$, as:
 
-$$
+``` math
 \text{A}_{I} = \frac{\sum_{m=1}^{p}    S_{m}}{\sum_{k=1}^{n} S_{k}}
-$$
+```
 
-Where $S_{m}$ denote metrics measured by the user and $S_{k}$ denote
+Where $`S_{m}`$ denote metrics measured by the user and $`S_{k}`$ denote
 *key_metrics* for a given indicator, as shown in the **Reference
 table**.
 
@@ -585,6 +585,3 @@ The new additional columns of this table denote:
   and reporting scale.
 - **npsfm_grade:** The NPSFM grade band that corresponds to a metric
   given its average value.
-
-**The Cauchy-Schwarz Inequality**
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
