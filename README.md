@@ -327,7 +327,9 @@ scores are calculated as:
 
 <!-- $$\text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{bl}_{c,m} - \text{value}_{i,m}}{\text{bl}_{c,m} - \text{ref}_{c,m}}\text{))}$$ -->
 
-$$ \text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{bl}_{c,m} - \text{value}_{i,m}}{\text{bl}_{c,m} - \text{ref}_{c,m}}\text{))} $$
+``` math
+\text{ps}_{i,c,m} = \text{min(}1,\text{max(}\frac{\text{bl}_{c,m} - \text{value}_{i,m}}{\text{bl}_{c,m} - \text{ref}_{c,m}}\text{))}
+```
 
 Where $\text{ps}_{i,c,m}$ denotes the performance score for site $i$
 belonging to class $c$ and metric $m$, $\text{bl}_{c,}$ and
@@ -463,7 +465,7 @@ component_plot
 #> [[1]]
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 The output of the `plot_component` function is a list of plots, where
 each element corresponds to a different *reporting_scale* group.
