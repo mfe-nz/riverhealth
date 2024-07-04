@@ -484,10 +484,9 @@ each wedge should be filled, the function calculates the availability
 for each indicator, $`\text{A}_{I}`$, as:
 
 ``` math
-\text{A}_{I} = \frac{\sum_{m=1}^{p}    S_{m}}{\sum_{k=1}^{n} S_{k}}
+\text{A}_{I} = \frac{\sum_{m=1}^p    S_{m}}{\sum_{k=1}^n S_{k}}
 ```
 
-$`\text{A}_{I} = \frac{\sum_{m=1}^{p}    S_{m}}{\sum_{k=1}^{n} S_{k}}`$
 Where $`S_{m}`$ denote metrics measured by the user and $`S_{k}`$ denote
 *key_metrics* for a given indicator, as shown in the **Reference
 table**.
