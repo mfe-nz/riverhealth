@@ -298,3 +298,17 @@ The output of the `calculate_npsfm_grade` function is a table where each row is 
 - **metric_mean:** The average value of a metric for a particular class and reporting scale.
 - **npsfm_grade:** The NPSFM grade band that corresponds to a metric given its average value.
 
+# References 
+
+Clapcott, J., Goodwin, E., Williams, E., Harding, J., McArthur, K., Schallenberg, M., Young, R., & Death, R. (2019). *Technical report on the prototype New Zealand River Ecosystem Health Score*. Cawthron Institute.
+
+MFE. 2020. *National Policy Statement for Freshwater Management 2020*. Ministry for the Environment, Wellington.
+
+# Appendix
+
+The following references were consulted to establish benchmarks for non NPSFM metrics:
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+ kableExtra::kable(data_sources)
+
+```

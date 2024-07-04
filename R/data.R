@@ -49,3 +49,19 @@
 "plants"
 
 
+#' Data sources to calculate Zealand River Ecosystem Health Score
+#'
+#'
+#'
+#' @format A data frame with 39 rows and 6 variables:
+#' \describe{
+#'
+#'   \item{Component}{The specific component to which the indicator belongs (i.e.,. aquatic_life)}
+#'   \item{Indicator}{The specific indicator to which metrics belong (i.e., macroinvertebrates)}
+#'   \item{Attribute}{The biophysical attribute a given metric quantifies}
+#'   \item{Metric}{Measured or modeled biophysical characteristics of rivers and streams.}
+#'   \item{Citation}{Source from which benchmarks were derived for a given metric.}
+
+#' }
+
+"data_sources"
