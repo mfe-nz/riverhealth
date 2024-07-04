@@ -530,7 +530,7 @@ report_card <- plot_report_card(
 
 
 #save it to aid visualization
-jpeg("./aquatic_life_plot.jpeg",width = 1875, height = 3000, res = 150)
+jpeg("man/figures/aquatic_life_plot.jpeg",width = 1875, height = 3000, res = 150)
 report_card[[1]]
 dev.off()
 #> png 
@@ -543,7 +543,7 @@ column. We recommend saving the outputs of this function as individual
 pdf files to aid visualization, as shown in the code above.
 
 <figure>
-<img src="aquatic_life_plot.jpeg" style="width:100.0%"
+<img src="man/figures/aquatic_life_plot.jpeg" style="width:100.0%"
 alt="Figure 2 River ecosystem health report card. For the present example, only data for the Aquatic Life component was available." />
 <figcaption aria-hidden="true">Figure 2 River ecosystem health report
 card. For the present example, only data for the Aquatic Life component

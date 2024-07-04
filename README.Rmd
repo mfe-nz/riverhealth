@@ -267,7 +267,7 @@ report_card <- plot_report_card(
 
 
 #save it to aid visualization
-jpeg("./aquatic_life_plot.jpeg",width = 1875, height = 3000, res = 150)
+jpeg("man/figures/aquatic_life_plot.jpeg",width = 1875, height = 3000, res = 150)
 report_card[[1]]
 dev.off()
 
@@ -275,7 +275,7 @@ dev.off()
 ```
 Similar to the `plot_component` function, the `plot_all_components` output is a list of plots, one per group in the *reporting_scale* column. We recommend saving the outputs of this function as individual pdf files to aid visualization, as shown in the code above.
 
-![Figure 2 River ecosystem health report card. For the present example, only data for the Aquatic Life component was available.](aquatic_life_plot.jpeg){width=100%}
+![Figure 2 River ecosystem health report card. For the present example, only data for the Aquatic Life component was available.](man/figures/aquatic_life_plot.jpeg){width=100%}
 
 ## Extra functionality – NPSFM grades
 
