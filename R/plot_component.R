@@ -179,7 +179,7 @@ plot_component <- function(score_table,
                           colhead=list(fg_params=list(hjust=0,x=0), fontsize=font_size/1.5))
 
 
-    table_plot_grob<- gridExtra::tableGrob(table_plot, rows = NULL, theme = tt3)
+
     #instead of one big table, it works better to have three tables
     test_table <- tidyr::tibble("Indicator" = c(plot_title,
                                          plot_group,

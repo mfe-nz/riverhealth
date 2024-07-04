@@ -73,7 +73,7 @@ A note on metric **suitability** values. In the default reference table, these w
 
 A note on **key_metric** identification. Metrics were labelled as key metrics if they contributed to a holistic assessment of ecological integrity, which includes nativeness, pristineness, diversity, and resilience, where applicable. Each indicator must contain at least one key metric even if that metric has low suitability. For example, plant *exotic_species* is a key metric despite a suitability of 1 because there are no alternative metrics assessing nativeness.
 
-### Preparing data - Indicator tables
+### Preparing data – Indicator tables
 
 Within each component, indicator tables should be prepared independently. Each table should be presented as a tidy data frame, where each variable constitutes a column, and each observation forms a row. The data in these tables should already be aggregated at the desired level for analysis. For example, as detailed in Clapcott et al. (2019), data were aggregated at the site level using the mean average for the given period (e.g. 2013-2017).
 
@@ -266,3 +266,24 @@ dev.off()
 Similar to the `plot_component` function, the `plot_all_components` output is a list of plots, one per group in the *reporting_scale* column. We recommend saving the outputs of this function as individual pdf files to aid visualization, as shown in the code above.
 
 ![Figure 2 River ecosystem health report card. For the present example, only data for the Aquatic Life component was available.](aquatic_life_plot.jpeg){width=100%}
+
+## Extra functionality – NPSFM grades
+
+The package offers the option to calculate metric grades based on the 2020 National Policy Statement for Freshwater Management benchmarks. However, these grades are not used for data integration as they are metric-specific and cannot be integrated into indicator and component levels. To calculate metric grades, all indicator tables within a component should be put in a list and given to the function `calculate_npsfm_grade` as follows:
+
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+indicators <- list(fish,macroinvertebrates,plants)
+
+npsfm_grades <- calculate_npsfm_grade(indicators = indicators,
+                                      reference_table = reference_table_default,
+                                      overall = overall_score)
+
+kableExtra::kable(npsfm_grades)
+
+```
+
+The output of the `calculate_npsfm_grade` function is a table where each row is a unique combination of *metric*, *class*, and *reporting_scale*. The new additional columns of this table denote:
+
+- **metric_mean:** The average value of a metric for a particular class and reporting scale.
+- **npsfm_grade:** The NPSFM grade band that corresponds to a metric given its average value.

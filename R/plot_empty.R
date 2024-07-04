@@ -139,8 +139,7 @@ plot_empty <- function(component_ind,
         axis.text.x = ggplot2::element_text(size=font_size, vjust=-0.01),
         legend.position = "none",
         axis.text.y = ggplot2::element_blank(),
-        axis.title = ggplot2::element_blank())+
-      ggplot2::annotate("text", max(plot_table$index)/2 + 0.5, y=0.001, label=component_label$component_grade[i], size=font_size )
+        axis.title = ggplot2::element_blank())
 
     #creating metadata table
     plot_title <- paste0("Component: ",stringr::str_to_title(component_name))
@@ -150,17 +149,7 @@ plot_empty <- function(component_ind,
     #flag if user used their own benchmarks.
     default_baselines <- ifelse(all(score_plot$default_baseline), "Metric baselines: default", "Metric baselines: user defined" )
 
-    #Data about each metric
-    table_plot <- score_plot%>%
-      dplyr::select( "Indicator" =indicator,
-                     "Metric" =metric,
-                     "Observations"= observations)%>%
-      dplyr::mutate(Indicator= stringr::str_to_sentence(Indicator)) %>%
-      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replacement= " ")) %>%
-      dplyr::mutate(Indicator = sub(Indicator, pattern="_", replacement= " ")) %>%
-      dplyr::mutate(Indicator= ifelse(duplicated(Indicator), " ",Indicator)) %>%
-      dplyr::rowwise() %>%
-      dplyr::mutate(Metric = get_metric_names(Metric))
+
 
     #make metadata table into a grob
     tt3 <- gridExtra::ttheme_minimal(core=list(fg_params=list(hjust=0, x=0, fontsize=font_size/1.5)),
@@ -168,7 +157,6 @@ plot_empty <- function(component_ind,
                                      colhead=list(fg_params=list(hjust=0,x=0), fontsize=font_size/1.5))
 
 
-    table_plot_grob<- gridExtra::tableGrob(table_plot, rows = NULL, theme = tt3)
     #instead of one big table, it works better to have three tables
     test_table <- tidyr::tibble("Indicator" = c(plot_title,
                                                 plot_group,
@@ -183,7 +171,7 @@ plot_empty <- function(component_ind,
                             "Observations"= c(" ","Observations", "No data"))
 
     #bind all tables together
-    final_table <- rbind(test_table, middle_table, table_plot)
+    final_table <- rbind(test_table, middle_table)
 
     test_grob <- gridExtra::tableGrob(final_table,rows = NULL, cols = NULL, theme=tt3)
 

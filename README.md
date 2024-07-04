@@ -210,7 +210,7 @@ key metric even if that metric has low suitability. For example, plant
 *exotic_species* is a key metric despite a suitability of 1 because
 there are no alternative metrics assessing nativeness.
 
-### Preparing data - Indicator tables
+### Preparing data – Indicator tables
 
 Within each component, indicator tables should be prepared
 independently. Each table should be presented as a tidy data frame,
@@ -544,3 +544,39 @@ alt="Figure 2 River ecosystem health report card. For the present example, only 
 card. For the present example, only data for the Aquatic Life component
 was available.</figcaption>
 </figure>
+
+## Extra functionality – NPSFM grades
+
+The package offers the option to calculate metric grades based on the
+2020 National Policy Statement for Freshwater Management benchmarks.
+However, these grades are not used for data integration as they are
+metric-specific and cannot be integrated into indicator and component
+levels. To calculate metric grades, all indicator tables within a
+component should be put in a list and given to the function
+`calculate_npsfm_grade` as follows:
+
+``` r
+indicators <- list(fish,macroinvertebrates,plants)
+
+npsfm_grades <- calculate_npsfm_grade(indicators = indicators,
+                                      reference_table = reference_table_default,
+                                      overall = overall_score)
+
+kableExtra::kable(npsfm_grades)
+```
+
+| component    | indicator          | attribute          | metric     | class      | reporting_scale | metric_mean | npsfm_grade | reference | bottom_line | cut |
+|:-------------|:-------------------|:-------------------|:-----------|:-----------|:----------------|------------:|:------------|----------:|------------:|----:|
+| aquatic_life | fish               | fish_ibi           | fish_ibi   | universal  | overall         |    28.94193 | B           |        34 |          18 |  28 |
+| aquatic_life | macroinvertebrates | mci                | mci        | universal  | overall         |   105.92847 | C           |       130 |          90 | 110 |
+| aquatic_life | plants             | plant_productivity | periphyton | default    | overall         |    69.75908 | B           |        50 |         200 | 120 |
+| aquatic_life | plants             | plant_productivity | periphyton | productive | overall         |    80.40864 | B           |        50 |         200 | 120 |
+
+The output of the `calculate_npsfm_grade` function is a table where each
+row is a unique combination of *metric*, *class*, and *reporting_scale*.
+The new additional columns of this table denote:
+
+- **metric_mean:** The average value of a metric for a particular class
+  and reporting scale.
+- **npsfm_grade:** The NPSFM grade band that corresponds to a metric
+  given its average value.
