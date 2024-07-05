@@ -60,6 +60,7 @@
 #'   \item{Indicator}{The specific indicator to which metrics belong (i.e., macroinvertebrates)}
 #'   \item{Attribute}{The biophysical attribute a given metric quantifies}
 #'   \item{Metric}{Measured or modeled biophysical characteristics of rivers and streams.}
+#'   \item{Units}{Measurement units used for each metric.}
 #'   \item{Citation}{Source from which benchmarks were derived for a given metric.}
 
 #' }

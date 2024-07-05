@@ -273,7 +273,10 @@ dev.off()
 
 
 ```
-Similar to the `plot_component` function, the `plot_all_components` output is a list of plots, one per group in the *reporting_scale* column. We recommend saving the outputs of this function as individual pdf files to aid visualization, as shown in the code above.
+The `plot_all_components` output is a table of the overall ecosystem health plot followed by the five ecosystem health component plots.  A simple key is provided for plot interpretation in the first row. If there are no data provided for a given component, then an empty plot is printed and the metadata states ‘no data’. 
+
+We recommend saving the outputs of this function as individual image files to aid visualization, as shown in the code above. The user can customise font size, image size and the image type of file outputted (e.g., pdf, png). 
+
 
 ![Figure 2 River ecosystem health report card. For the present example, only data for the Aquatic Life component was available.](man/figures/aquatic_life_plot.jpeg){width=100%}
 
@@ -306,7 +309,7 @@ MFE. 2020. *National Policy Statement for Freshwater Management 2020*. Ministry 
 
 # Appendix
 
-The following references were consulted to establish benchmarks for non NPSFM metrics:
+The following references were consulted to establish benchmarks:
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
  kableExtra::kable(data_sources)
