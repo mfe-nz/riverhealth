@@ -8,7 +8,7 @@ plot_report_card(
   component_scores,
   reference_table,
   npsfm_only = FALSE,
-  font_size = 15,
+  font_size = 12,
   color_table = NULL,
   start_year = NULL,
   end_year = NULL

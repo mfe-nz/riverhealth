@@ -455,7 +455,7 @@ component_plot <- plot_component(
   score_table = score_table,
   npsfm_only = npsfm_only,
   reference_table = reference_table_default,
-  font_size = 20,
+  font_size = 15,
   color_table = NULL,
   start_year = 2017,
   end_year = 2024
@@ -523,14 +523,14 @@ report_card <- plot_report_card(
   start_year = 2017,
   end_year = 2024,
   color_table = NULL,
-  font_size = 14
+  font_size = 10
   
 )
 
 
 
 #save it to aid visualization
-jpeg("man/figures/aquatic_life_plot.jpeg",width = 1875, height = 3000, res = 150)
+jpeg("man/figures/aquatic_life_plot.jpeg",width = 1975, height = 3100, res = 150)
 report_card[[1]]
 dev.off()
 #> png 
