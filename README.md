@@ -21,7 +21,7 @@ You can install the development version of riverhealth from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("cawthron/riverhealth")
+devtools::install_github("mfe-nz/riverhealth")
 ```
 
 ## Preparing data
