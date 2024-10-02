@@ -88,7 +88,7 @@ plot_component <- function(score_table,
                           by= c("component","indicator","reporting_scale"))
 
   #tidy data for plotting. This involves expanding each observation (indicator*class) times 3, to fill out the doughnut. Creating new categories for when grade is missing(W) and for the interior of the doughnut (Z).
-  plot_table <-  prepare_doughnut_chart(plot_table = plot_table)
+  plot_table <-  prepare_doughnut_chart(plot_table = plot_table,score_table=score_table)
 
   #if no color table is provided, then use these colors
   if(is.null(color_table)){

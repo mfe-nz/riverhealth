@@ -8,7 +8,7 @@
 #
 #' @export
 
-prepare_doughnut_chart <- function(plot_table){
+prepare_doughnut_chart <- function(plot_table,score_table){
 
 
   plot_table <- plot_table %>%
